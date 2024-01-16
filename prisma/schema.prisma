@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user_types {
+  id    Int     @id @default(autoincrement())
+  title String  @unique @db.VarChar(100)
+  users users[]
+}
+
+model users {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String          @db.VarChar(255)
+  email         String          @unique @db.VarChar(255)
+  token         String          @unique @default(uuid()) @db.Uuid
+  user_type_id  Int
+  user_types    user_types      @relation(fields: [user_type_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  content_views content_views[]
+}
+
+model content_types {
+  id       Int        @id @default(autoincrement())
+  title    String     @unique @db.VarChar(100)
+  contents contents[]
+}
+
+model contents {
+  id              String          @id @default(uuid()) @db.Uuid
+  name            String          @db.VarChar(255)
+  description     String          @db.Text
+  content_type_id Int
+  content_types   content_types   @relation(fields: [content_type_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  content_views   content_views[]
+}
+
+model content_views {
+  id         Int      @id @default(autoincrement())
+  content_id String   @db.Uuid
+  contents   contents @relation(fields: [content_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id    String?  @db.Uuid
+  users      users?   @relation(fields: [user_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+}

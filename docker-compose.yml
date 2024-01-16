@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=learning
+      - POSTGRES_PASSWORD=rocks
+      - POSTGRES_NAME=postgres
+      - POSTGRES_PORT=5434
+      - POSTGRES_HOST=localhost
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5434:5432'
+volumes:
+  postgres:

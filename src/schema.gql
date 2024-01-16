@@ -1,0 +1,16 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type content {
+  id: String!
+  name: String!
+  description: String!
+  content_type_id: Int!
+}
+
+type Query {
+  getHello: String!
+  content(id: String!, content_types: Boolean, content_views: Boolean): content!
+  contents(ids: [String!], name: String, description: String, content_type_ids: [Int!]): [content!]!
+}
