@@ -5,6 +5,12 @@
 
 > api with nestjs and graphql
 
+## Install
+
+```sh
+yarn
+```
+
 ## To execute tests and application
 
 1. Execute docker database
@@ -12,16 +18,17 @@
 ```sh
 docker-compose up -d
 ```
-2. Execute seeds
+
+2. Migrate database
+
+```sh
+npx prisma migrate dev --name crate_database
+```
+
+3. Execute seeds
 
 ```
 npx prisma db seed
-```
-
-## Install
-
-```sh
-yarn
 ```
 
 ## Usage
