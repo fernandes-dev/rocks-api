@@ -46,6 +46,8 @@ yarn start:dev
 yarn test
 ```
 
+![Tests](./test/rocks-api-tests.png)
+
 ## Author
 
 👤 **Eduardo Fernandes**
