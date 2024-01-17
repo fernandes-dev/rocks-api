@@ -1,6 +1,4 @@
-export type validUserTypes = 'administrador' | 'estudante';
-
-export const userTypesConfig: Record<'admin' | 'student', validUserTypes> = {
+export const userTypesConfig = {
   admin: 'administrador',
   student: 'estudante',
 };

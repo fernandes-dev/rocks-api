@@ -1,7 +1,8 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { contents as ContentDB } from '@prisma/client';
-// import { ContentType } from './content-type';
-// import { ContentView } from './content-view';
+import { ContentViewCount } from './content-view-count';
+import { ContentType } from './content-type';
+import { ContentView } from './content-view';
 
 @ObjectType('content')
 export class Content {
@@ -17,9 +18,12 @@ export class Content {
   @Field(() => Int)
   content_type_id: ContentDB['content_type_id'];
 
-  // @Field(() => ContentType)
-  // content_types: ContentType;
+  @Field(() => ContentViewCount)
+  _count?: ContentViewCount;
 
-  // @Field(() => [ContentView])
-  // content_views: ContentView[];
+  @Field(() => ContentType)
+  content_types?: ContentType;
+
+  @Field(() => [ContentView])
+  content_views?: ContentView[];
 }

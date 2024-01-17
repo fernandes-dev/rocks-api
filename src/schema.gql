@@ -2,15 +2,80 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type contentViewCount {
+  content_views: Int!
+}
+
+type contentType {
+  id: Int!
+  title: String!
+}
+
+type user {
+  id: Int!
+  name: String!
+  email: String!
+  token: String!
+  user_type_id: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type contentView {
+  id: Int!
+  content_id: String!
+  user_id: String!
+  users: user!
+  contents: content!
+}
+
 type content {
   id: String!
   name: String!
   description: String!
   content_type_id: Int!
+  _count: contentViewCount!
+  content_types: contentType!
+  content_views: [contentView!]!
+}
+
+type GetContentsOutput {
+  list: [content!]!
+  page: Int!
+  per_page: Int!
 }
 
 type Query {
-  getHello: String!
-  content(id: String!, content_types: Boolean, content_views: Boolean): content!
-  contents(ids: [String!], name: String, description: String, content_type_ids: [Int!]): [content!]!
+  content(id: String!): content!
+  contents(ids: [String!], name: String, description: String, content_type_ids: [Int!], page: Int, per_page: Int): GetContentsOutput!
+  contentTypes: [contentType!]!
+}
+
+type Mutation {
+  createContentType(createContentTypeData: CreateContentTypeInput!): contentType!
+  createContent(createContentData: CreateContentInput!): content!
+  updateContent(updateContentData: UpdateContentInput!): content!
+  deleteContent(id: String!): content!
+}
+
+input CreateContentTypeInput {
+  title: String!
+}
+
+input CreateContentInput {
+  name: String!
+  description: String!
+  content_type_id: Float!
+}
+
+input UpdateContentInput {
+  id: String!
+  name: String
+  description: String
+  content_type_id: Float
 }

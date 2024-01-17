@@ -16,4 +16,10 @@ export class GetContentsArgs {
   @Field(() => [Int])
   @IsArray()
   content_type_ids?: number[];
+
+  @Field(() => Int)
+  page?: number;
+
+  @Field(() => Int)
+  per_page?: number;
 }
